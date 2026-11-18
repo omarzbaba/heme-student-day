@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body style="margin:0">
+<title>Heme Workshop Outline</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Nunito+Sans:wght@300..800&display=swap">
+<style>
+/* Layout: two printable sheets. Sheet 1 is the day (scaled timeline, a five-station carousel that turns). Sheet 2 is what we build. Each station owns one color, reused in the report graphic. */
+:root{--paper:#FBF7F2;--sheet:#FFFFFF;--ink:#1B2A41;--muted:#4A5568;--line:#E6DED4;--soft:#F4EEE6;--navy:#223B63;--navy-ink:#F3EEE6;--navy-muted:#B9C6DD;--coral:#B9534C;
+--s1:#6B4C9A;--s2:#B9534C;--s3:#2E7D83;--s4:#A8701C;--s5:#3F5F9A;
+--c1:#2F8F4E;--c2:#C2407E;--c3:#8A9A1B;--c4:#5A6578;--c5:#8A5A3C;--onc:#FFFFFF;
+--display:Fraunces,Georgia,serif;--body:'Nunito Sans',Verdana,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#121A28;--sheet:#1B2436;--ink:#F3EEE6;--muted:#C2CAD6;--line:#2C394F;--soft:#232E44;--navy:#0E1626;--navy-ink:#F3EEE6;--navy-muted:#A9B8D2;--coral:#EE958D;--s1:#B9A6D9;--s2:#EE958D;--s3:#6CC3C9;--s4:#E2B25C;--s5:#9DB4E6;--c1:#6FCF8F;--c2:#EE8AB8;--c3:#C5D45A;--c4:#A9B4C2;--c5:#D1A080;--onc:#10151F;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#121A28;--sheet:#1B2436;--ink:#F3EEE6;--muted:#C2CAD6;--line:#2C394F;--soft:#232E44;--navy:#0E1626;--navy-ink:#F3EEE6;--navy-muted:#A9B8D2;--coral:#EE958D;--s1:#B9A6D9;--s2:#EE958D;--s3:#6CC3C9;--s4:#E2B25C;--s5:#9DB4E6;--c1:#6FCF8F;--c2:#EE8AB8;--c3:#C5D45A;--c4:#A9B4C2;--c5:#D1A080;--onc:#10151F;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:26px}
+h1,h2,h3,p,ol,ul{margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance}
+h1{font-size:clamp(2rem,1.3rem + 3vw,3.4rem);line-height:1.04;font-weight:300}
+h2{font-size:clamp(1.35rem,1.05rem + 1.2vw,1.9rem);line-height:1.14}
+h3{font-size:1.12rem;line-height:1.2}
+.eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--coral)}
+.muted{color:var(--muted)}
+.small{font-size:.92rem}
+.top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px}
+.top b{font-family:var(--display);font-weight:600}
+.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:end}
+.lede{font-size:1.1rem;color:var(--muted);margin-top:12px;max-width:62ch}
+.facts{background:var(--navy);color:var(--navy-ink);border-radius:4px;padding:16px 18px;display:grid;gap:7px;font-variant-numeric:tabular-nums}
+.facts div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(255,255,255,.14);padding-bottom:5px}
+.facts div:last-child{border:0;padding:0}
+.facts span{color:var(--navy-muted);font-size:.88rem}.facts b{text-align:right}
+.g{display:grid;gap:14px}.g5{grid-template-columns:repeat(5,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+/* timeline */
+.scroll{overflow-x:auto}
+.tl{min-width:900px;position:relative}
+.ribbon{display:flex;height:70px;border-radius:4px;overflow:hidden;font-size:.76rem;font-weight:700;line-height:1.15}
+.ribbon div{display:flex;align-items:center;justify-content:center;text-align:center;padding:2px;border-right:1px solid var(--sheet);background:var(--soft);color:var(--ink)}
+.ribbon .st{background:var(--navy);color:#F3EEE6}
+.ribbon .hi{background:var(--coral);color:#fff}
+.ribbon .v{writing-mode:vertical-rl;transform:rotate(180deg)}
+.play{position:absolute;top:-4px;height:78px;width:3px;background:var(--ink);border-radius:2px;left:0;animation:play 26s linear infinite;opacity:.75}
+@keyframes play{from{left:0}to{left:100%}}
+.ticks{position:relative;height:22px;font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.ticks span{position:absolute;top:4px;transform:translateX(-50%)}
+.ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}
+/* carousel */
+.car{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:center}
+.ring{width:100%;height:auto;max-width:460px;justify-self:center}
+.ring .path{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:6 8;animation:dash 6s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-140}}
+.ring .node text{font-family:var(--display);font-size:22px;font-weight:600;fill:#fff;text-anchor:middle}
+.ring .lab{font-family:var(--body);font-size:13px;font-weight:800;fill:var(--ink);text-anchor:middle}
+.ring .sub{font-family:var(--body);font-size:11px;fill:var(--muted);text-anchor:middle}
+.ring .hub{font-family:var(--display);font-size:15px;fill:var(--muted);text-anchor:middle}
+.teams{transform-origin:260px 215px;animation:turn 25s cubic-bezier(.6,0,.3,1) infinite}
+.tk{transform-box:fill-box;transform-origin:center;animation:turnback 25s cubic-bezier(.6,0,.3,1) infinite}
+.tk circle{fill:var(--sheet);stroke:var(--ink);stroke-width:2}
+.tk text{font-family:var(--body);font-size:12px;font-weight:800;fill:var(--ink);text-anchor:middle}
+@keyframes turn{0%,16%{transform:rotate(0)}20%,36%{transform:rotate(72deg)}40%,56%{transform:rotate(144deg)}60%,76%{transform:rotate(216deg)}80%,96%{transform:rotate(288deg)}100%{transform:rotate(360deg)}}
+@keyframes turnback{0%,16%{transform:rotate(0)}20%,36%{transform:rotate(-72deg)}40%,56%{transform:rotate(-144deg)}60%,76%{transform:rotate(-216deg)}80%,96%{transform:rotate(-288deg)}100%{transform:rotate(-360deg)}}
+.stations{display:grid;gap:10px}
+.stn{display:grid;grid-template-columns:86px 1fr;gap:14px;align-items:center;border-left:4px solid var(--c);padding:6px 0 6px 12px}
+.stn svg{width:86px;height:58px}
+.stn h3 span{color:var(--c);font-weight:600}
+.stn p{font-size:.9rem;color:var(--muted)}
+.stn em{font-style:normal;font-size:.8rem;font-weight:800;color:var(--c)}
+.ill .bg{fill:var(--soft)}.ill .ink{stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ill .f{fill:var(--c)}.ill .fi{fill:var(--ink)}.ill .w{fill:var(--sheet)}
+.bar{transform-box:fill-box;transform-origin:bottom;animation:grow 3s ease-in-out infinite}
+.bar:nth-of-type(2){animation-delay:.3s}.bar:nth-of-type(3){animation-delay:.6s}.bar:nth-of-type(4){animation-delay:.9s}.bar:nth-of-type(5){animation-delay:1.2s}
+@keyframes grow{0%,100%{transform:scaleY(.55)}50%{transform:scaleY(1)}}
+.dot{animation:blink 2.4s ease-in-out infinite}.dot:nth-child(odd){animation-delay:.8s}
+@keyframes blink{0%,100%{opacity:.35}50%{opacity:1}}
+.tube{animation:ride 5s linear infinite}
+@keyframes ride{from{transform:translateX(0)}to{transform:translateX(62px)}}
+.row{transform-box:fill-box;transform-origin:left;animation:fill 5s ease-out infinite}
+.row.r2{animation-delay:.5s}.row.r3{animation-delay:1s}
+@keyframes fill{0%{transform:scaleX(0)}40%,100%{transform:scaleX(1)}}
+.cell{animation:bob 4s ease-in-out infinite}.cell.c2{animation-delay:1.3s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+/* cases */
+.case{border-top:4px solid var(--c,var(--ink));padding-top:8px;display:flex;flex-direction:column;gap:3px}
+.case h3{display:flex;align-items:center;gap:7px}
+.cs{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;background:var(--c);color:var(--onc);font-family:var(--display);font-weight:600;font-size:.78rem;font-style:normal;flex:none}
+.case small{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.case .is{font-family:var(--display);font-size:1rem;color:var(--ink);line-height:1.2}
+.case p{color:var(--muted);font-size:.9rem}
+.case.new small{color:var(--coral)}
+.note{background:var(--soft);border-radius:4px;padding:12px 14px;font-size:.93rem}
+/* page 2 */
+.obj{counter-reset:o;list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 26px}
+.obj li{counter-increment:o;display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:.95rem}
+.obj li::before{content:counter(o);font-family:var(--display);font-size:1.5rem;font-weight:300;line-height:1;color:var(--s1)}
+.obj b{font-weight:800}.obj i{font-style:normal;color:var(--muted);font-size:.84rem;display:block}
+.app{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:24px;align-items:start}
+.feat{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px;font-size:.93rem}
+.feat li{padding-left:14px;border-left:3px solid var(--line)}
+.feat b{display:block}
+.rep{border:1px solid var(--line);border-radius:4px;padding:14px;display:grid;gap:7px;font-size:.84rem}
+.rep div{display:grid;grid-template-columns:10px 1fr;gap:8px;align-items:center}
+.rep i{width:10px;height:22px;border-radius:2px;background:var(--c);display:block}
+.rep span b{color:var(--c)}
+.prep{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 26px}
+.prep h3{border-bottom:2px solid var(--ink);padding-bottom:4px;margin-bottom:6px}
+.prep ul{padding-left:1.1em;font-size:.9rem;display:grid;gap:3px}
+/* people and checklist (v6.1) */
+.g21{display:grid;gap:24px;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr)}
+.who{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;font-size:.92rem}
+.who div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.who div span:first-child{font-weight:800}
+.who .open{color:var(--coral);font-weight:700}
+.stack{display:grid;gap:10px}
+.d4{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:d}
+.d4 li{counter-increment:d;background:var(--navy);color:var(--navy-ink);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+.d4 li::before{content:counter(d);font-family:var(--display);font-size:1.6rem;font-weight:300;line-height:1;color:var(--navy-muted)}
+.d4 b{font-family:var(--display);font-size:1.15rem;font-weight:500}
+.d4 span{font-size:.84rem;color:var(--navy-muted);line-height:1.3}
+.gates{columns:2;column-gap:30px}
+.gate{break-inside:avoid;margin:0 0 14px}
+.gate header{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:3px;margin-bottom:3px}
+.gate time{font-family:var(--display);font-weight:600;color:var(--coral);font-variant-numeric:tabular-nums;white-space:nowrap}
+.gate h3{font-size:1.08rem}
+.gate header span{margin-left:auto;font-size:.76rem;color:var(--muted);white-space:nowrap}
+.ck{list-style:none;padding:0;margin:0}
+.ck li{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:8px;align-items:baseline;font-size:.9rem;padding:3px 0;border-bottom:1px dotted var(--line)}
+.ck i{width:11px;height:11px;border:1.5px solid var(--ink);border-radius:2px;display:block;transform:translateY(1px)}
+.ck em{font-style:normal;font-size:.72rem;font-weight:800;letter-spacing:.03em;color:var(--muted);text-align:right;white-space:nowrap}
+.ck small{color:var(--coral);font-weight:700;font-size:.8em;white-space:nowrap}
+.foot{font-size:.84rem;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+@media (max-width:700px){.g21,.who{grid-template-columns:1fr}.d4{grid-template-columns:repeat(2,minmax(0,1fr))}.gates{columns:1}.p8,.wk,.irbp{grid-template-columns:1fr}.hero,.car,.app,.g2{grid-template-columns:1fr}.g5{grid-template-columns:repeat(2,minmax(0,1fr))}.g3,.prep{grid-template-columns:1fr}.obj,.feat,.decide{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.play{display:none}}
+@page{size:letter;margin:0.35in}
+@media print{
+*{animation:none!important}
+html,body{background:#fff}
+body{padding:0;font-size:10px;line-height:1.33;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.wrap{gap:0;max-width:none}.sheet{border:0;border-radius:0;padding:0;gap:11px;break-after:page}.sheet:last-child{break-after:auto}
+h1{font-size:30px}h2{font-size:17px}h3{font-size:12.5px}.eyebrow{font-size:8px}.lede{font-size:11.5px;margin-top:6px}
+.small,.note,.stn p,.case p,.obj li,.feat,.prep ul,.decide li,.dates span,.rep{font-size:9.6px}
+.facts{padding:9px 12px;gap:4px;font-size:10px}.facts span{font-size:9px}
+.car{gap:14px}.ring{max-width:300px}.stations{gap:5px}.stn{grid-template-columns:62px 1fr;gap:10px;padding:3px 0 3px 10px}.stn svg{width:62px;height:42px}.stn em{font-size:8.4px}
+.case .is{font-size:11.5px}.case small{font-size:7.6px}
+.obj{gap:6px 20px}.obj li{grid-template-columns:22px 1fr}.obj li::before{font-size:17px}.obj i{font-size:8.6px}
+.rep{padding:9px;gap:4px}.rep i{height:15px}
+.prep{gap:10px 18px}.decide{gap:5px 18px}.decide li{grid-template-columns:20px 1fr}.decide li::before{width:20px;height:20px;font-size:10px}
+.note{padding:8px 10px}.foot{font-size:8.2px;padding-top:6px}
+.cs{width:14px;height:14px;font-size:8.5px;border-radius:3px}.who{font-size:9.8px;gap:0 20px}.who div{padding:3.5px 0}.d4{gap:9px}.d4 li{padding:8px 10px}.d4 li::before{font-size:17px}.d4 b{font-size:13px}.d4 span{font-size:9px}.gates{column-gap:24px}.gate{margin-bottom:10px}.gate h3{font-size:12.5px}.gate time{font-size:11.5px}.gate header span{font-size:8.4px}.ck li{font-size:10.7px;padding:3.3px 0}.ck em{font-size:8.6px}.ck i{width:10px;height:10px}.gate h3{font-size:13.5px}.gate time{font-size:12.5px}.gate{margin-bottom:13px}
+}
+</style>
+
+<main class="wrap">
+<section class="sheet" aria-labelledby="t1">
+<div class="top"><span class="eyebrow">Henry Ford Health with Michigan State University &middot; outline for Dr. Inamdar</span><span class="muted">Page <b>1</b> of 3 &middot; The day</span></div>
+<div class="hero">
+<div>
+<h1 id="t1">Five patients, five stations, one Saturday</h1>
+<p class="lede">A hematopathology workshop for preclinical medical students. At 9:00 they meet five patients. They rotate through five stations, and each station adds one kind of evidence on all five. Nobody knows which patient their team will present until the app draws it. A companion app runs the clock, the cases and the score.</p>
+</div>
+<div class="facts">
+<div><span>When</span><b>A Saturday, March to May 2027</b></div>
+<div><span>Hours</span><b>8:30 to 2:30</b></div>
+<div><span>Registration</span><b>Capped at 30, with a waitlist</b></div>
+<div><span>Teams</span><b>5 teams, up to 6 each</b></div>
+<div><span>Shape</span><b>One carousel of 5 stations</b></div>
+</div>
+</div>
+
+<div>
+<p class="eyebrow">The day, drawn to scale</p>
+<div class="scroll" style="margin-top:10px"><div class="tl" role="img" aria-label="Timeline from 8:30 to 2:30: doors, introduction, three stations, a break, two stations, a one-hour working lunch with the draw midway, the summative huddle, Jeopardy, and the wrap-up.">
+<div class="play"></div>
+<div class="ribbon">
+<div style="flex:30">Doors: badge, coffee, pre-survey</div>
+<div class="hi" style="flex:20">Intro: five patients</div>
+<div class="st" style="flex:30">Station</div><div class="st" style="flex:30">Station</div><div class="st" style="flex:30">Station</div>
+<div style="flex:20">Break</div>
+<div class="st" style="flex:30">Station</div><div class="st" style="flex:30">Station</div>
+<div style="flex:60">Working lunch: wrap up the five cases, the draw midway</div>
+<div class="hi" style="flex:50">Summative huddle: five presentations</div>
+<div class="st" style="flex:20">Jeopardy</div>
+<div class="v" style="flex:10">Wrap</div>
+</div>
+<div class="ticks"><span style="left:0">8:30</span><span style="left:8.33%">9:00</span><span style="left:13.89%">9:20</span><span style="left:22.22%">9:50</span><span style="left:30.56%">10:20</span><span style="left:38.89%">10:50</span><span style="left:44.44%">11:10</span><span style="left:52.78%">11:40</span><span style="left:61.11%">12:10</span><span style="left:69.44%">12:40</span><span style="left:77.78%">1:10</span><span style="left:91.67%">2:00</span><span style="left:100%">2:30</span></div>
+</div></div>
+<p class="muted small" style="margin-top:8px">Each station slot is 30 minutes: about 27 at the station and the rest to walk. The stations end at 12:10. Then a one-hour working lunch: teams wrap up all five cases while facilitators and moderators circulate to help, and midway, at 12:40, the app assigns each team the case it will present.</p>
+</div>
+
+<div>
+<p class="eyebrow">The carousel</p>
+<h2 style="margin:6px 0 12px">Every team visits every station. The order differs, so each station stands on its own.</h2>
+<div class="car">
+<svg class="ring" viewBox="0 0 520 430" role="img" aria-label="Five teams rotating clockwise around five stations: the multi-head scope, the CBC and the analyzer, flow cytometry, the clinic, and the lab tour.">
+<circle class="path" cx="260" cy="215" r="150"/>
+<text class="hub" x="260" y="210">teams move</text><text class="hub" x="260" y="230">every 30 minutes</text>
+<g class="teams">
+<g class="tk"><circle cx="260" cy="118" r="15"/><text x="260" y="122">T1</text></g>
+<g class="tk"><circle cx="352" cy="185" r="15"/><text x="352" y="189">T2</text></g>
+<g class="tk"><circle cx="317" cy="293" r="15"/><text x="317" y="297">T3</text></g>
+<g class="tk"><circle cx="203" cy="293" r="15"/><text x="203" y="297">T4</text></g>
+<g class="tk"><circle cx="168" cy="185" r="15"/><text x="168" y="189">T5</text></g>
+</g>
+<g class="node"><circle cx="260" cy="65" r="28" fill="var(--s1)"/><text x="260" y="73">1</text></g><text class="lab" x="260" y="24">The scope</text>
+<g class="node"><circle cx="403" cy="169" r="28" fill="var(--s2)"/><text x="403" y="177">2</text></g><text class="lab" x="455" y="128">The CBC</text>
+<g class="node"><circle cx="348" cy="336" r="28" fill="var(--s3)"/><text x="348" y="344">3</text></g><text class="lab" x="400" y="392">Flow</text>
+<g class="node"><circle cx="172" cy="336" r="28" fill="var(--s4)"/><text x="172" y="344">4</text></g><text class="lab" x="120" y="392">The clinic</text>
+<g class="node"><circle cx="117" cy="169" r="28" fill="var(--s5)"/><text x="117" y="177">5</text></g><text class="lab" x="68" y="128">The lab</text>
+</svg>
+<div class="stations">
+<article class="stn" style="--c:var(--s1)"><svg class="ill" viewBox="0 0 86 58" aria-hidden="true"><rect class="bg" width="86" height="58" rx="4"/><circle class="w" cx="56" cy="29" r="22"/><circle class="ink" cx="56" cy="29" r="22"/><g class="cell"><circle cx="48" cy="24" r="6" fill="#E9A6A0"/><circle cx="62" cy="36" r="6" fill="#E9A6A0"/></g><g class="cell c2"><circle class="f" cx="60" cy="21" r="7"/><circle cx="47" cy="38" r="5" fill="#E9A6A0"/></g><path class="ink" d="M10 48h20M20 48V30l8-14M14 30h12"/></svg><div><h3><span>1</span> The multi-head scope</h3><p>A short film on collecting a bone marrow. A normal smear and a normal aspirate. Then the smears and marrows of all five cases.</p><em>Morphology &middot; Dr. Wey</em></div></article>
+<article class="stn" style="--c:var(--s2)"><svg class="ill" viewBox="0 0 86 58" aria-hidden="true"><rect class="bg" width="86" height="58" rx="4"/><path class="ink" d="M12 48h62M12 48V10"/><rect class="f bar" x="18" y="30" width="8" height="18"/><rect class="f bar" x="29" y="16" width="8" height="32"/><rect class="f bar" x="40" y="22" width="8" height="26"/><rect class="f bar" x="51" y="34" width="8" height="14"/><rect class="f bar" x="62" y="40" width="8" height="8"/></svg><div><h3><span>2</span> The CBC and the analyzer</h3><p>An animation of how the instrument counts. Then how to read a CBC with differential by lineage and what each index means, on the five patients' counts.</p><em>Numbers &middot; Dr. Inamdar</em></div></article>
+<article class="stn" style="--c:var(--s3)"><svg class="ill" viewBox="0 0 86 58" aria-hidden="true"><rect class="bg" width="86" height="58" rx="4"/><path class="ink" d="M14 48h60M14 48V8"/><g class="f"><circle class="dot" cx="28" cy="38" r="2.5"/><circle class="dot" cx="33" cy="34" r="2.5"/><circle class="dot" cx="26" cy="32" r="2.5"/><circle class="dot" cx="32" cy="41" r="2.5"/><circle class="dot" cx="56" cy="18" r="2.5"/><circle class="dot" cx="61" cy="22" r="2.5"/><circle class="dot" cx="54" cy="24" r="2.5"/><circle class="dot" cx="62" cy="15" r="2.5"/><circle class="dot" cx="58" cy="27" r="2.5"/></g><ellipse class="ink" cx="58" cy="21" rx="12" ry="10" stroke-dasharray="3 3"/></svg><div><h3><span>3</span> Flow cytometry</h3><p>No instrument on site, so an animated film explains the idea. Then each patient's plots: one population or a mixture, and what that means.</p><em>Immunophenotype &middot; resident or fellow</em></div></article>
+<article class="stn" style="--c:var(--s4)"><svg class="ill" viewBox="0 0 86 58" aria-hidden="true"><rect class="bg" width="86" height="58" rx="4"/><rect class="w" x="24" y="6" width="40" height="46" rx="3"/><rect class="ink" x="24" y="6" width="40" height="46" rx="3"/><rect class="fi" x="36" y="3" width="16" height="6" rx="2"/><rect class="row" x="30" y="17" width="28" height="4" fill="var(--s1)"/><rect class="row r2" x="30" y="26" width="22" height="4" fill="var(--s2)"/><rect class="row r3" x="30" y="35" width="26" height="4" fill="var(--s3)"/><rect class="f" x="30" y="44" width="18" height="4"/></svg><div><h3><span>4</span> The clinic</h3><p>How each patient presents. The chemistries, B12, folate and MMA, LDH, molecular and genetic results, and treatment. How one report integrates every modality.</p><em>Clinical bridge &middot; hematology clinician</em></div></article>
+<article class="stn" style="--c:var(--s5)"><svg class="ill" viewBox="0 0 86 58" aria-hidden="true"><rect class="bg" width="86" height="58" rx="4"/><path class="ink" d="M6 44h74"/><rect class="ink" x="50" y="12" width="24" height="26" rx="3"/><rect class="f" x="55" y="17" width="14" height="8"/><g class="tube"><rect class="w" x="8" y="26" width="8" height="18" rx="3"/><rect class="ink" x="8" y="26" width="8" height="18" rx="3"/><rect class="f" x="8" y="24" width="8" height="5" rx="1"/></g></svg><div><h3><span>5</span> The lab tour: hematology workflow</h3><p>A short film on how the lab is organized, then a walk through the core lab with the hematology workflow in focus: a tube's path from the inlet to the stockyard, the CBC line, how a smear is made and stained, and CellaVision.</p><em>The specimen's journey &middot; OZB with the core lab team</em></div></article>
+</div>
+</div>
+</div>
+
+<div>
+<p class="eyebrow">The five cases conduct the day</p>
+<div class="g g5" style="margin-top:10px">
+<div class="case" style="--c:var(--c1)"><small>Looks like leukemia</small><h3><i class="cs">1</i>Case 1</h3><p class="is">(B12 deficiency)</p><p>A 68-year-old man. Low counts, a packed marrow, a six-lobed neutrophil.</p></div>
+<div class="case" style="--c:var(--c2)"><small>Looks like mono</small><h3><i class="cs">2</i>Case 2</h3><p class="is">(B-cell acute lymphoblastic leukemia)</p><p>A 19-year-old man. Cells that all look alike. Flow decides.</p></div>
+<div class="case" style="--c:var(--c3)"><small>Looks like infection</small><h3><i class="cs">3</i>Case 3</h3><p class="is">(chronic myeloid leukemia)</p><p>A 52-year-old woman. Every stage of neutrophil. A gene test decides.</p></div>
+<div class="case" style="--c:var(--c4)"><small>Looks like an emergency</small><h3><i class="cs">4</i>Case 4</h3><p class="is">(EDTA tube artifact)</p><p>A 45-year-old woman. Platelets of 14 that are clumps. The lab decides.</p></div>
+<div class="case new" style="--c:var(--c5)"><small>New &middot; looks like a pain crisis</small><h3><i class="cs">5</i>Case 5</h3><p class="is">(sickle cell disease, aplastic crisis)</p><p>A 23-year-old man. Sickle cells, and a reticulocyte count that should be high and is not.</p></div>
+</div>
+<p class="note" style="margin-top:12px"><b>The game.</b> No team owns a case. Every team logs findings on all five in the app, station by station. Midway through the working lunch the app assigns each team the case it will present. Points come from the summative huddle and from Jeopardy. Case 5 is a draft for Dr. Wey to edit; all patients are fictional. Stations are colored circles and cases are colored squares, so the two never mix.</p>
+</div>
+</section>
+
+<section class="sheet" aria-labelledby="t2">
+<div class="top"><span class="eyebrow">What we have to build</span><span class="muted">Page <b>2</b> of 3 &middot; Objectives, the app, the people</span></div>
+
+<div>
+<p class="eyebrow">Learning objectives</p>
+<h2 id="t2" style="margin:6px 0 12px">By the end of the workshop, the student will be able to:</h2>
+<ol class="obj">
+<li><div><b>Identify</b> the normal cells of blood and marrow and assign each to its lineage.<i>Station 1</i></div></li>
+<li><div><b>Interpret</b> a CBC with differential by lineage, using the indices, absolute counts and the reticulocyte count.<i>Station 2</i></div></li>
+<li><div><b>Explain</b> how an automated analyzer produces a CBC, and recognize a result that is an artifact.<i>Stations 2 and 5</i></div></li>
+<li><div><b>Distinguish</b> reactive from neoplastic blood findings on a smear, and recognize a blast.<i>Station 1</i></div></li>
+<li><div><b>Describe</b> the principle of flow cytometry and read a plot as one population or a mixture.<i>Station 3</i></div></li>
+<li><div><b>Apply</b> a stepwise approach to anemia and to thrombocytopenia, and choose the next test.<i>Stations 2 and 4</i></div></li>
+<li><div><b>Integrate</b> the history, CBC, morphology, chemistry, flow and molecular results into one diagnosis and one report.<i>Station 4, working lunch</i></div></li>
+<li><div><b>Trace</b> a specimen through the laboratory and name who does what along the way.<i>Station 5</i></div></li>
+<li><div><b>Present</b> a case at a multidisciplinary conference and defend the diagnosis with evidence.<i>Summative huddle</i></div></li>
+<li><div><b>Describe</b> what a hematopathologist contributes to the care of a patient.<i>The whole day</i></div></li>
+</ol>
+</div>
+
+<div>
+<p class="eyebrow">The companion app</p>
+<div class="app" style="margin-top:10px">
+<ul class="feat">
+<li><b>A badge with a QR code</b>Scanning it opens the student's own dashboard.</li>
+<li><b>Team and route</b>Random team assignment, the station order, a countdown to the next move.</li>
+<li><b>The case log</b>Personal and team notes on all five patients.</li>
+<li><b>Results pushed by the admin</b>OZB releases each station's data as teams arrive.</li>
+<li><b>References</b>Short guides for each station, open all day.</li>
+<li><b>Questions</b>A channel to ask the faculty.</li>
+<li><b>Surveys</b>Before, after, and again at four to six weeks. Answers go to a simple file of our own.</li>
+<li><b>The draw, Jeopardy and the score</b>Random case assignment, voting, a live board.</li>
+</ul>
+<div class="rep" aria-label="The report builds in five color-coded parts, one per station">
+<b style="font-family:var(--display);font-size:1.05em">The report builds itself, one color per station</b>
+<div style="--c:var(--s4)"><i></i><span><b>Clinical</b> history, chemistry, molecular</span></div>
+<div style="--c:var(--s2)"><i></i><span><b>CBC</b> by lineage, with indices</span></div>
+<div style="--c:var(--s1)"><i></i><span><b>Morphology</b> smear and marrow</span></div>
+<div style="--c:var(--s3)"><i></i><span><b>Flow</b> population and markers</span></div>
+<div style="--c:var(--s5)"><i></i><span><b>Lab</b> specimen quality, artifact check</span></div>
+<span class="muted">By the end of the working lunch each team holds five built reports, ready for the summative huddle.</span>
+</div>
+</div>
+</div>
+
+<div>
+<p class="eyebrow">What we produce</p>
+<div class="prep" style="margin-top:10px;grid-template-columns:repeat(4,minmax(0,1fr))">
+<div><h3>Marketing videos to send</h3><ul><li>Teaser, with the announcement</li><li>Invitation from Dr. Wey and Dr. Inamdar</li><li>What you will do: five stations in a minute</li><li>Last call: 30 seats and a waitlist</li><li>See you Saturday, for confirmed students</li><li>Recap of the day</li></ul></div>
+<div><h3>Six films for the day</h3><ul><li>Collecting a bone marrow (Station 1)</li><li>How the analyzer counts, animated (Station 2)</li><li>How flow cytometry works, animated (Station 3)</li><li>The lab, section by section (Station 5)</li><li>Making and staining a smear (Station 5)</li><li>Welcome and how the day runs (introduction)</li></ul></div>
+<div><h3>Each case file</h3><ul><li>The story, one paragraph</li><li>CBC printout with differential</li><li>Glass or images: smear and marrow</li><li>Flow plots, or a "not ordered" card</li><li>Chemistry, molecular, hemoglobin analysis</li><li>The final integrated report</li></ul></div>
+<div><h3>Each station</h3><ul><li>A lead and a backup</li><li>A facilitator guide</li><li>A 27-minute script</li><li>Its film, ready on the screen</li><li>Its piece of each of the five cases</li><li>A short reference guide in the app</li></ul></div>
+</div>
+</div>
+
+<div class="g21">
+<div>
+<p class="eyebrow">Who leads what on the day (proposed)</p>
+<div class="who" style="margin-top:8px">
+<div><span>Welcome, the clock and the app on the day</span><span>OZB</span></div>
+<div><span>Introduction and the five cases</span><span>Dr. Wey</span></div>
+<div><span>Station 1, the multi-head scope</span><span>Dr. Wey</span></div>
+<div><span>Station 2, the CBC and the analyzer</span><span>Dr. Inamdar</span></div>
+<div><span>Station 3, flow cytometry</span><span class="open">A resident or fellow, to name</span></div>
+<div><span>Station 4, the clinic</span><span class="open">A hematology clinician, to invite, with a backup</span></div>
+<div><span>Station 5, the lab tour</span><span>OZB with the core lab team</span></div>
+<div><span>Team guides between stations</span><span class="open">Residents, to name</span></div>
+<div><span>Working lunch, circulating to help the teams</span><span>All facilitators and moderators</span></div>
+<div><span>Summative huddle moderator</span><span>Dr. Wey, with Dr. Inamdar and the clinician as discussants</span></div>
+<div><span>Jeopardy host</span><span>Dr. Inamdar</span></div>
+<div><span>Tech support on the day</span><span class="open">To name</span></div>
+</div>
+</div>
+<div class="stack">
+<p class="eyebrow">Registration and the surveys</p>
+<p class="note"><b>Capped at 30, with a waitlist.</b> Sign-up opens a few months ahead and closes at a deadline. Students past 30 join the waitlist in order. Two weeks before the day everyone confirms, and open seats go to the waitlist.</p>
+<p class="note"><b>Surveys and the IRB.</b> A survey before, after, and four to six weeks later. OZB is contacting the IRB office; sign-up opens only after its reply. Answers stay in a simple file of our own.</p>
+</div>
+</div>
+</section>
+
+<section class="sheet" aria-labelledby="t3">
+<div class="top"><span class="eyebrow">The checklist</span><span class="muted">Page <b>3</b> of 3 &middot; Deliverables, owners, tentative deadlines</span></div>
+<div>
+<p class="eyebrow">To decide with Dr. Inamdar</p>
+<ol class="d4" style="margin-top:10px">
+<li><b>The date</b><span>A Saturday, March to May 2027. Candidates: Mar 13, Apr 10, Apr 17, May 1.</span></li>
+<li><b>The budget</b><span>What the day needs paid for, and who approves it.</span></li>
+<li><b>The cases</b><span>Five cases as drafted. Case 5 (sickle cell disease, aplastic crisis) is new.</span></li>
+<li><b>The people</b><span>Moderators, station leads, and the residents who guide the teams.</span></li>
+</ol>
+</div>
+<div>
+<p class="eyebrow">Deliverables, owners and tentative deadlines</p>
+<h2 id="t3" style="margin:6px 0 4px">What gets done, by whom, by when</h2>
+<p class="muted small" style="margin-bottom:12px">Deadlines assume a working date of <b>Saturday, April 17, 2027</b>. It is tentative: choose another Saturday and every deadline moves with it. Owners are proposals to confirm.</p>
+<div class="gates">
+<section class="gate"><header><time>Fri Nov 20</time><h3>Decide</h3><span>21 weeks out</span></header>
+<ul class="ck">
+<li><i></i><span>Pick the date and a backup</span><em>All three</em></li>
+<li><i></i><span>Agree the budget</span><em>All three</em></li>
+<li><i></i><span>Approve the five cases</span><em>Dr. Wey, Dr. Inamdar</em></li>
+<li><i></i><span>Name the moderators and facilitators</span><em>All three</em></li>
+</ul></section>
+<section class="gate"><header><time>Fri Dec 11</time><h3>Set up</h3><span>18 weeks out</span></header>
+<ul class="ck">
+<li><i></i><span>Contact the IRB office</span><em>OZB</em></li>
+<li><i></i><span>Hold the rooms: the Horn, the multi-head room, the E&amp;R room</span><em>OZB</em></li>
+<li><i></i><span>Clear the core lab route with the supervisor</span><em>OZB</em></li>
+<li><i></i><span>Invite the hematology clinician and a backup</span><em>Dr. Inamdar</em></li>
+<li><i></i><span>Department sign-off on the budget</span><em>Dr. Wey</em></li>
+<li><i></i><span>One-paragraph story for each case</span><em>Dr. Wey</em></li>
+<li><i></i><span>Draft the survey questions: before, after, follow-up</span><em>OZB, Dr. Wey</em></li>
+</ul></section>
+<section class="gate"><header><time>Fri Jan 15</time><h3>Draft</h3><span>13 weeks out</span></header>
+<ul class="ck">
+<li><i></i><span>Five case files drafted: CBC, smear and marrow, flow, chemistry, molecular, final report</span><em>Dr. Wey</em></li>
+<li><i></i><span>Glass pulled and images captured, five cases and the normals</span><em>Dr. Wey, residents</em></li>
+<li><i></i><span>One-page outline for each station</span><em>Station leads</em></li>
+<li><i></i><span>Film list and scripts</span><em>OZB, station leads</em></li>
+<li><i></i><span>App walk-through shown to Dr. Wey and Dr. Inamdar</span><em>OZB</em></li>
+<li><i></i><span>Sign-up page with a cap of 30 and a waitlist</span><em>OZB</em></li>
+<li><i></i><span>Announcement and flyer</span><em>OZB</em></li>
+<li><i></i><span>Marketing videos scripted and recorded</span><em>OZB</em></li>
+<li><i></i><span>IRB reply in hand</span><em>OZB</em></li>
+</ul></section>
+<section class="gate"><header><time>Mon Jan 25</time><h3>Sign-up opens</h3><span>12 weeks out</span></header>
+<ul class="ck">
+<li><i></i><span>Announce to students; sign-up opens</span><em>OZB</em></li>
+</ul></section>
+<section class="gate"><header><time>Fri Feb 19</time><h3>Build</h3><span>8 weeks out</span></header>
+<ul class="ck">
+<li><i></i><span>Six films recorded and edited</span><em>OZB, station leads</em></li>
+<li><i></i><span>Case files final, reviewed by Dr. Wey</span><em>Dr. Wey</em></li>
+<li><i></i><span>Facilitator guide and 27-minute script for each station</span><em>Station leads</em></li>
+<li><i></i><span>Introduction slides</span><em>Dr. Wey</em></li>
+<li><i></i><span>Scoring rubric for the summative huddle</span><em>Dr. Wey, Dr. Inamdar</em></li>
+<li><i></i><span>Jeopardy question bank, first draft</span><em>Dr. Inamdar</em></li>
+<li><i></i><span>App ready for a first dry run</span><em>OZB</em></li>
+<li><i></i><span>Residents named and briefed</span><em>Dr. Inamdar</em></li>
+<li><i></i><span>Food ordered; weekend access arranged</span><em>OZB</em></li>
+</ul></section>
+<section class="gate"><header><time>Fri Mar 5</time><h3>Sign-up closes</h3><span>6 weeks out</span></header>
+<ul class="ck">
+<li><i></i><span>Sign-up closes; 30 confirmed, waitlist in order</span><em>OZB</em></li>
+<li><i></i><span>Badges and QR codes prepared</span><em>OZB</em></li>
+</ul></section>
+<section class="gate"><header><time>Fri Mar 19</time><h3>Rehearse</h3><span>4 weeks out</span></header>
+<ul class="ck">
+<li><i></i><span>App dry run with test teams</span><em>OZB, residents</em></li>
+<li><i></i><span>Timed walk of the rotation route</span><em>OZB, residents</em></li>
+<li><i></i><span>Each station run once, timed</span><em>Station leads</em></li>
+</ul></section>
+<section class="gate"><header><time>Fri Apr 2</time><h3>Freeze</h3><span>2 weeks out</span></header>
+<ul class="ck">
+<li><i></i><span>App frozen</span><em>OZB</em></li>
+<li><i></i><span>Jeopardy bank final</span><em>Dr. Inamdar</em></li>
+<li><i></i><span>Everything printed: badges, case sheets, certificates, signs</span><em>OZB</em></li>
+<li><i></i><span>Attendance confirmed; open seats offered to the waitlist</span><em>OZB</em></li>
+</ul></section>
+<section class="gate"><header><time>Fri Apr 9</time><h3>Dress rehearsal</h3><span>1 week out</span></header>
+<ul class="ck">
+<li><i></i><span>Dress rehearsal, start to finish</span><em>All three</em></li>
+<li><i></i><span>Reminder to students</span><em>OZB</em></li>
+</ul></section>
+<section class="gate"><header><time>Sat Apr 17</time><h3>The day</h3><span>8:30 to 2:30</span></header>
+<ul class="ck">
+<li><i></i><span>Tech check at 7:30, doors at 8:30</span><em>All three</em></li>
+</ul></section>
+<section class="gate"><header><time>From Fri Apr 23</time><h3>After</h3><span>the weeks after</span></header>
+<ul class="ck">
+<li><i></i><span>Thank-you and the references <small>Fri Apr 23</small></span><em>OZB</em></li>
+<li><i></i><span>Follow-up survey, four to six weeks after <small>May 15 to 29</small></span><em>OZB</em></li>
+<li><i></i><span>Analysis and a first draft of the write-up <small>end of June</small></span><em>OZB, Dr. Wey</em></li>
+</ul></section>
+</div>
+</div>
+<p class="foot">Outline version 6.2, November 2026. Date notes: avoid March 27 (Easter weekend) and May 29 (Memorial Day weekend); April 24 falls in Passover and May 8 is the day before Mother's Day; check the schools' calendars before choosing. Room names are as dictated and need confirming.</p>
+</section>
+</main>
+
+</body>
+</html>

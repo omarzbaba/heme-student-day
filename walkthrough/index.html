@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body style="margin:0">
+<title>Heme Workshop Walkthrough</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Nunito+Sans:wght@300..800&display=swap">
+<style>
+/* Layout: a pager. Each page is split: cream = what the student sees, navy = what we prepare. Station colors carry through the puzzle map and the patient pages. */
+:root{--paper:#FBF7F2;--card:#FFFFFF;--ink:#1B2A41;--muted:#4A5568;--line:#E6DED4;--soft:#F1E9DF;--navy:#223B63;--navy2:#2C4A7A;--navy-ink:#F3EEE6;--navy-muted:#B9C6DD;--coral:#B9534C;--pink:#E9A6A0;
+--s1:#6B4C9A;--s2:#B9534C;--s3:#2E7D83;--s4:#A8701C;--s5:#3F5F9A;
+--c1:#2F8F4E;--c2:#C2407E;--c3:#8A9A1B;--c4:#5A6578;--c5:#8A5A3C;--onc:#FFFFFF;
+--display:Fraunces,Georgia,serif;--body:'Nunito Sans',Verdana,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#121A28;--card:#1B2436;--ink:#F3EEE6;--muted:#C2CAD6;--line:#2C394F;--soft:#232E44;--navy:#0B1220;--navy2:#1A2740;--navy-ink:#F3EEE6;--navy-muted:#A9B8D2;--coral:#EE958D;--pink:#C98882;--s1:#B9A6D9;--s2:#EE958D;--s3:#6CC3C9;--s4:#E2B25C;--s5:#9DB4E6;--c1:#6FCF8F;--c2:#EE8AB8;--c3:#C5D45A;--c4:#A9B4C2;--c5:#D1A080;--onc:#10151F;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#121A28;--card:#1B2436;--ink:#F3EEE6;--muted:#C2CAD6;--line:#2C394F;--soft:#232E44;--navy:#0B1220;--navy2:#1A2740;--navy-ink:#F3EEE6;--navy-muted:#A9B8D2;--coral:#EE958D;--pink:#C98882;--s1:#B9A6D9;--s2:#EE958D;--s3:#6CC3C9;--s4:#E2B25C;--s5:#9DB4E6;--c1:#6FCF8F;--c2:#EE8AB8;--c3:#C5D45A;--c4:#A9B4C2;--c5:#D1A080;--onc:#10151F;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.4;display:flex;flex-direction:column;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,p,ul,ol{margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance}
+h1{font-size:clamp(2.2rem,1.2rem + 4.5vw,4.6rem);font-weight:300;line-height:1.02}
+h2{font-size:clamp(1.5rem,1.1rem + 1.8vw,2.5rem);line-height:1.1}
+h3{font-size:1.15rem}
+.eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--coral)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.bar b{font-family:var(--display);color:var(--ink);font-weight:600}
+.key{display:flex;gap:14px;align-items:center}
+.key i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.stage{flex:1;min-height:0;overflow:auto;padding-block:18px}
+.pg{display:none;max-width:1180px;margin:0 auto;min-height:100%;flex-direction:column;gap:18px}
+.pg.on{display:flex}
+.rise{animation:rise .65s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0)*110ms)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px 14px;border-top:1px solid var(--line)}
+.nav button{font:inherit;font-weight:800;border:1px solid var(--ink);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 18px;cursor:pointer}
+.nav button:hover{background:var(--ink);color:var(--paper)}
+.nav button:focus-visible,.dots button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.nav button:disabled{opacity:.3;cursor:default;background:var(--card);color:var(--ink)}
+.dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+.dots button{width:10px;height:10px;padding:0;border-radius:50%;border:1px solid var(--muted);background:transparent;cursor:pointer}
+.dots button.on{background:var(--coral);border-color:var(--coral)}
+/* split */
+.head{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+.time{font-family:var(--display);font-size:1.3rem;font-weight:600;color:var(--c,var(--coral));font-variant-numeric:tabular-nums}
+.split{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;flex:1}
+.see,.prep{border-radius:10px;padding:clamp(16px,2.5vw,28px);display:flex;flex-direction:column;gap:14px}
+.see{background:var(--card);border:1px solid var(--line)}
+.prep{background:var(--navy);color:var(--navy-ink)}
+.tag{font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.see .tag{color:var(--c,var(--coral))}.prep .tag{color:var(--navy-muted)}
+.ill{width:100%;max-height:230px;border-radius:8px;background:var(--soft)}
+.pts{list-style:none;padding:0;display:grid;gap:8px;font-size:1.02rem}
+.pts li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start}
+.pts li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c,var(--coral));margin-top:7px}
+.prep .pts li::before{background:transparent;border:2px solid var(--navy-muted);border-radius:2px;width:12px;height:12px;margin-top:5px}
+.who{margin-top:auto;font-size:.9rem;color:var(--navy-muted);border-top:1px solid rgba(255,255,255,.16);padding-top:10px}
+.who b{color:var(--navy-ink)}
+/* svg helpers */
+svg .k{stroke:var(--ink);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+svg .w{fill:var(--card)}svg .f{fill:var(--c,var(--coral))}svg .i{fill:var(--ink)}svg .p{fill:var(--pink)}svg .m{fill:var(--muted)}
+svg text{font-family:var(--body);fill:var(--ink)}
+.bob{animation:bob 4s ease-in-out infinite}.bob.b2{animation-delay:1.3s}.bob.b3{animation-delay:2.2s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.grow{transform-box:fill-box;transform-origin:bottom;animation:grow 3s ease-in-out infinite}
+@keyframes grow{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+.blink{animation:blink 2.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+.ride{animation:ride 6s linear infinite}
+@keyframes ride{from{transform:translateX(0)}to{transform:translateX(150px)}}
+.fillx{transform-box:fill-box;transform-origin:left;animation:fillx 5s ease-out infinite}
+@keyframes fillx{0%{transform:scaleX(0)}35%,100%{transform:scaleX(1)}}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.beam{stroke-dasharray:6 8;animation:dash 3s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-140}}
+/* cover */
+.cover{justify-content:center;gap:26px}
+.legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:760px}
+.legend div{border-radius:10px;padding:18px}
+.legend .a{background:var(--card);border:1px solid var(--line)}.legend .b{background:var(--navy);color:var(--navy-ink)}
+.legend b{font-family:var(--display);font-size:1.3rem;font-weight:500;display:block}
+/* timeline */
+.scroll{overflow-x:auto}
+.tl{min-width:900px;position:relative}
+.ribbon{display:flex;height:96px;border-radius:8px;overflow:hidden;font-size:.82rem;font-weight:700;line-height:1.15}
+.ribbon div{display:flex;align-items:center;justify-content:center;text-align:center;padding:3px;border-right:2px solid var(--paper);background:var(--soft)}
+.ribbon .st{background:var(--navy);color:#F3EEE6}.ribbon .hi{background:var(--coral);color:#fff}
+.ribbon .v{writing-mode:vertical-rl;transform:rotate(180deg)}
+.play{position:absolute;top:-6px;height:108px;width:4px;background:var(--ink);border-radius:2px;animation:play 24s linear infinite;opacity:.8}
+@keyframes play{from{left:0}to{left:100%}}
+.ticks{position:relative;height:24px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.ticks span{position:absolute;top:5px;transform:translateX(-50%)}.ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.three div{border-top:3px solid var(--ink);padding-top:8px}
+.three b{font-family:var(--display);font-size:1.25rem;font-weight:500;display:block}
+.three span{color:var(--muted);font-size:.95rem}
+/* ring */
+.ringwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:center;flex:1}
+.ring{width:100%;max-width:520px;justify-self:center}
+.ring .path{fill:none;stroke:var(--line);stroke-width:2.5;stroke-dasharray:6 8;animation:dash 6s linear infinite}
+.ring .n text{font-family:var(--display);font-size:24px;font-weight:600;fill:#fff;text-anchor:middle}
+.ring .lab{font-size:14px;font-weight:800;text-anchor:middle}
+.ring .hub{font-family:var(--display);font-size:16px;fill:var(--muted);text-anchor:middle}
+.teams{transform-origin:260px 215px;animation:turn 20s cubic-bezier(.6,0,.3,1) infinite}
+.tk{transform-box:fill-box;transform-origin:center;animation:turnb 20s cubic-bezier(.6,0,.3,1) infinite}
+.tk circle{fill:var(--card);stroke:var(--ink);stroke-width:2}.tk text{font-size:12px;font-weight:800;text-anchor:middle}
+@keyframes turn{0%,16%{transform:rotate(0)}20%,36%{transform:rotate(72deg)}40%,56%{transform:rotate(144deg)}60%,76%{transform:rotate(216deg)}80%,96%{transform:rotate(288deg)}100%{transform:rotate(360deg)}}
+@keyframes turnb{0%,16%{transform:rotate(0)}20%,36%{transform:rotate(-72deg)}40%,56%{transform:rotate(-144deg)}60%,76%{transform:rotate(-216deg)}80%,96%{transform:rotate(-288deg)}100%{transform:rotate(-360deg)}}
+.slist{display:grid;gap:10px}
+.slist button{font:inherit;text-align:left;color:inherit;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:8px;padding:10px 14px;cursor:pointer;display:grid;gap:2px}
+.slist button:hover{background:var(--soft)}
+.slist b{font-family:var(--display);font-size:1.15rem;font-weight:500}.slist span{color:var(--muted);font-size:.9rem}
+/* matrix */
+.mx{display:grid;grid-template-columns:150px repeat(5,minmax(120px,1fr)) minmax(130px,1fr);gap:6px;min-width:980px}
+.mx .h{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:6px 8px;border-radius:6px;color:#fff;background:var(--c);text-align:center}
+.mx .h.x{background:transparent;color:var(--muted)}.mx .h.ans{background:var(--ink);color:var(--paper)}
+.mx .pt{padding:8px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;border-radius:6px;border:0;background:transparent;color:inherit;font:inherit;text-align:left}
+.mx .pt:hover{background:var(--soft)}
+.mx .pt b{font-family:var(--display);font-size:1.1rem;font-weight:500}.mx .pt span{font-size:.78rem;color:var(--muted)}
+.mx .c{border-radius:8px;padding:8px 9px;font-size:.84rem;line-height:1.25;background:color-mix(in srgb,var(--c) 14%,var(--card));border-top:3px solid var(--c);animation:glow 15s ease-in-out infinite;animation-delay:calc(var(--col)*3s)}
+.mx .c.key{background:var(--c);color:#fff;font-weight:700}
+.mx .c.no{background:transparent;border:1px dashed var(--line);border-top:3px solid var(--line);color:var(--muted)}
+.mx .a{border-radius:8px;padding:8px 9px;font-size:.86rem;font-weight:800;background:var(--ink);color:var(--paper);display:flex;align-items:center}
+@keyframes glow{0%,4%{box-shadow:0 0 0 0 transparent;transform:none}8%,16%{box-shadow:0 6px 0 -2px var(--c);transform:translateY(-3px)}20%,100%{box-shadow:0 0 0 0 transparent;transform:none}}
+.mxkey{display:flex;gap:16px;flex-wrap:wrap;font-size:.86rem;color:var(--muted)}
+.mxkey i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+/* patient */
+.pat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:16px;flex:1}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.pcard .big{font-family:var(--display);font-size:2.6rem;font-weight:300;line-height:1}
+.looks{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+.pieces{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.pc{position:relative;border-radius:10px;padding:14px 12px 12px;background:color-mix(in srgb,var(--c) 13%,var(--card));border-top:5px solid var(--c);display:flex;flex-direction:column;gap:6px;font-size:.92rem}
+.pc::after{content:"";position:absolute;right:-9px;top:44%;width:16px;height:16px;border-radius:50%;background:var(--c);z-index:1}
+.pc:last-child::after{display:none}
+.pc small{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
+.pc.key{background:var(--c);color:#fff}.pc.key small{color:#fff}
+.pc.key::before{content:"decides it";position:absolute;top:-14px;right:8px;background:var(--ink);color:var(--paper);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:999px}
+.ans{background:var(--ink);color:var(--paper);border-radius:10px;padding:14px 18px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.ans b{font-family:var(--display);font-size:1.5rem;font-weight:400}
+.back{background:var(--navy);color:var(--navy-ink);border-radius:10px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips span{border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:3px 11px;font-size:.84rem}
+.right{display:flex;flex-direction:column;gap:14px}
+/* build list */
+.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;flex:1}
+.four div{background:var(--navy);color:var(--navy-ink);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.four h3{font-size:1.35rem}.four ul{padding-left:1.1em;display:grid;gap:5px;font-size:.95rem;color:var(--navy-muted)}
+.note{font-size:.88rem;color:var(--muted)}
+/* cases: squares in their own palette, never circles, so they cannot be read as stations (circles) or teams (plain tokens) */
+.cs{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:5px;background:var(--c);color:var(--onc);font-family:var(--display);font-weight:600;font-size:.8rem;margin-right:6px;font-style:normal;vertical-align:middle;flex:none}
+.chip{display:inline-flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:6px;padding:2px 8px 2px 3px;margin:2px 4px 2px 0;font-size:.84rem;color:var(--ink);background:var(--card);line-height:1.2}
+.chip .cs{width:18px;height:18px;font-size:.7rem;margin-right:6px}
+.ckey{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.88rem;align-items:center}
+.ckey span{display:inline-flex;align-items:center}
+.ckey b{font-weight:800;margin-right:8px;color:var(--muted);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase}
+.sw{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.sq{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.tkn{display:inline-block;width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);background:var(--card);margin-right:4px;vertical-align:-2px}
+.pcard .dx{font-size:.95rem;font-weight:700;color:var(--muted);line-height:1.2}
+.pcard .ag{font-size:.82rem;color:var(--muted)}
+/* objectives map */
+.om{display:grid;grid-template-columns:34px minmax(0,2.3fr) repeat(6,minmax(52px,.5fr)) minmax(0,2fr);gap:6px 8px;align-items:center;min-width:900px}
+.om .h{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:6px 2px;border-radius:6px;color:#fff;background:var(--c,var(--ink))}
+.om .h.l{background:transparent;color:var(--muted);text-align:left}
+.om .n{font-family:var(--display);font-size:1.5rem;font-weight:300;color:var(--s1);text-align:center}
+.om .o{font-size:.95rem;line-height:1.25}.om .o b{font-weight:800}
+.om .d{display:grid;place-items:center}
+.om .d i{width:22px;height:22px;border-radius:50%;display:block;background:var(--c);animation:pulse 3.2s ease-in-out infinite;animation-delay:calc(var(--col)*.4s)}
+.om .d i.s{background:transparent;border:2px solid var(--c);animation:none}
+.om .w{font-size:.8rem;color:var(--muted);line-height:1.3}
+.om .rl{grid-column:1/-1;border-top:1px solid var(--line);height:0}
+/* prep pages */
+.four.eight{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:12px}
+.four.eight div{padding:14px 16px;gap:6px}
+.four.eight h3{font-size:1.1rem}
+.four.eight ul{font-size:.84rem;gap:3px;padding-left:1.05em}
+.tw{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;flex:1}
+.wl{list-style:none;padding:0 0 0 22px;margin:0 0 0 10px;display:grid;gap:5px;border-left:3px solid var(--line)}
+.wl li{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start;font-size:.9rem;position:relative}
+.wl li::before{content:"";position:absolute;left:-30px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--coral);animation:pulse 3.4s ease-in-out infinite}
+.wl li b{font-family:var(--display);font-weight:600;color:var(--coral);font-variant-numeric:tabular-nums}
+.wl li.day b{color:var(--ink)}.wl li.day::before{background:var(--ink)}
+.irb{background:var(--navy);color:var(--navy-ink);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.irb h3{font-size:1.2rem}.irb .tag{color:var(--navy-muted)}
+.irb ul{padding-left:1.1em;display:grid;gap:5px;font-size:.88rem;color:var(--navy-muted)}
+.irb ul b{color:var(--navy-ink)}
+.irb .nb{margin-top:auto;border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:8px 12px;font-size:.88rem}
+/* consolidated rows */
+.row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:12px;flex:1;min-height:0}
+.lt{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:10px;padding:14px 18px;display:grid;grid-template-columns:176px minmax(0,1fr);gap:16px;align-items:center}
+.lt .ill{max-height:132px}
+.lt h3{font-size:1.3rem;margin:2px 0 8px}
+.lt .tm{font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--c);font-variant-numeric:tabular-nums}
+.lt .pts{gap:5px;font-size:.96rem}
+.row .prep{padding:14px 18px;gap:8px;border-radius:10px}
+.row .prep .pts{gap:5px;font-size:.95rem}
+.row .who{margin-top:auto;padding-top:8px}
+.pgs{flex:1;display:flex;flex-direction:column;gap:12px;min-height:0}
+.hero2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:end}
+.hero2 h1{font-size:clamp(2rem,1.2rem + 3.2vw,3.5rem)}
+.legend2{display:grid;gap:10px}.legend2 div{border-radius:10px;padding:12px 16px}.legend2 .a{background:var(--card);border:1px solid var(--line)}.legend2 .b{background:var(--navy);color:var(--navy-ink)}.legend2 b{font-family:var(--display);font-size:1.15rem;font-weight:500;display:block}
+.prow{display:grid;grid-template-columns:190px minmax(0,1fr) 250px;gap:12px;align-items:stretch}
+.prow .pcard{padding:14px;gap:6px}.prow .pcard .big{font-size:1.9rem}.prow .pcard p{font-size:.88rem}
+.prow .pieces{gap:8px}.prow .pc{font-size:.8rem;padding:10px 8px 8px;gap:4px}.prow .pc small{font-size:.64rem}
+.prow .rcol{display:flex;flex-direction:column;gap:8px}
+.prow .ans{padding:10px 14px;flex-direction:column;gap:2px;align-items:flex-start}.prow .ans b{font-size:1.1rem;line-height:1.15}
+.prow .back{padding:10px 14px;gap:6px;flex:1}.prow .chips span{font-size:.76rem;padding:2px 9px}
+@media (max-width:900px){.row,.lt,.prow,.hero2{grid-template-columns:1fr}}
+@media (max-width:820px){.split,.ringwrap,.pat,.legend{grid-template-columns:1fr}.pieces{grid-template-columns:1fr 1fr}.pc::after{display:none}.four{grid-template-columns:1fr 1fr}.three{grid-template-columns:1fr}.bar .key{display:none}}
+@media (max-width:480px){.pieces,.four{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.play{display:none}}
+@page{size:11in 8.5in;margin:0.4in}
+@media print{.lt{grid-template-columns:130px 1fr;gap:12px;padding:10px 14px}.lt .ill{max-height:100px}.lt h3{font-size:15px}.lt .pts,.row .prep .pts{font-size:10.6px;gap:3px}.row .prep{padding:10px 14px}.prow{grid-template-columns:128px 1fr 250px;gap:8px}.prow .pc{font-size:9.2px;padding:8px 7px 6px}.prow .pc small{font-size:7.6px}.prow .pcard{padding:9px}.prow .pcard .looks{font-size:7.6px}.prow .back .tag{font-size:7.4px}.prow .back{padding:8px 10px}.prow .ans{padding:8px 10px}.four{flex:none}.pgs{gap:8px}.prow .pcard p{font-size:9.4px}.prow .pcard .big{font-size:20px}.prow .ans b{font-size:13px}.prow .chips span{font-size:9px}.row{grid-template-columns:1.35fr 1fr}.hero2{grid-template-columns:1.2fr 1fr}.hero2 h1{font-size:40px}.pg{max-height:7.6in;overflow:hidden}.om{min-width:0;gap:3px 6px}.four.eight{gap:10px}.four.eight div{padding:12px 14px;gap:6px}.four.eight h3{font-size:15px}.four.eight ul{font-size:10.6px;gap:3px}.tw{gap:14px}.wl{gap:7px}.wl li{font-size:11.4px;grid-template-columns:96px 1fr}.wl li::before{top:4px}.irb{padding:14px 16px;gap:8px}.irb h3{font-size:15px}.irb ul{font-size:10.6px;gap:5px}.irb .nb{font-size:10.4px;padding:7px 10px}.note{font-size:10.5px}.chip{font-size:8.6px;padding:1px 6px 1px 2px;margin:1px 3px 1px 0}.chip .cs{width:13px;height:13px;font-size:8px;margin-right:4px}.ckey{font-size:9.4px}.pcard .dx{font-size:11px}.pcard .ag{font-size:9px}.om .o{font-size:10.6px}.om .w{font-size:9px}.om .h{font-size:7.6px}.om .n{font-size:18px}.om .d i{width:16px;height:16px}*{animation:none!important}html,body{height:auto;background:#fff}body{display:block;padding:0;font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bar,.nav,.play{display:none}.stage{overflow:visible;padding:0}.pg{display:flex;min-height:0;break-after:page;break-inside:avoid;gap:12px;max-width:none}.pg:last-child{break-after:auto}.scroll{overflow:visible}.tl,.mx{min-width:0}.mx{grid-template-columns:105px repeat(5,minmax(0,1fr)) minmax(0,1fr)}.mx .c,.mx .a{font-size:9.5px}.ill{max-height:170px}.split{grid-template-columns:1.25fr 1fr}.ringwrap{grid-template-columns:1fr 1fr}.pat{grid-template-columns:1fr 2.4fr}.pieces{grid-template-columns:repeat(5,1fr)}.pc::after{display:block}.four{grid-template-columns:repeat(4,1fr)}.three{grid-template-columns:repeat(3,1fr)}.legend{grid-template-columns:1fr 1fr}.pts{font-size:13px}.mx .pt b{font-size:13px}.mx .pt span{font-size:9px}.mx .h{font-size:8px}h1{font-size:44px}h2{font-size:24px}.ring{max-width:380px}.pc{font-size:10.5px}}
+</style>
+
+<div class="bar"><span><b>Heme Workshop Walkthrough</b> &middot; for Dr. Inamdar</span><span class="key"><span><i style="background:var(--card);border:1px solid var(--muted)"></i>What the student sees</span><span><i style="background:var(--navy)"></i>What we prepare</span></span><span id="count"></span></div>
+<main class="stage" id="stage"></main>
+<nav class="nav" aria-label="Pages"><button id="prev" type="button">Back</button><div class="dots" id="dots"></div><button id="next" type="button">Next</button></nav>
+
+<script>
+const ILL={
+badge:`<svg class="ill" viewBox="0 0 240 150"><g class="bob"><rect class="w" x="70" y="22" width="100" height="112" rx="10"/><rect class="k" x="70" y="22" width="100" height="112" rx="10"/><rect class="i" x="108" y="14" width="24" height="14" rx="4"/><rect class="f" x="84" y="40" width="72" height="10" rx="3"/><g class="i"><rect x="92" y="62" width="16" height="16"/><rect x="132" y="62" width="16" height="16"/><rect x="92" y="102" width="16" height="16"/><rect x="114" y="62" width="8" height="8"/><rect x="114" y="84" width="12" height="12"/><rect x="132" y="88" width="8" height="8"/><rect x="140" y="104" width="8" height="14"/><rect x="118" y="106" width="8" height="8"/></g></g><g class="blink"><circle class="f" cx="200" cy="40" r="5"/><circle class="f" cx="40" cy="96" r="5"/></g></svg>`,
+five:`<svg class="ill" viewBox="0 0 240 150">${[0,1,2,3,4].map(i=>`<g class="bob ${i%2?'b2':''}"><rect class="w" x="${14+i*44}" y="${34+(i%2)*10}" width="36" height="76" rx="6"/><rect class="k" x="${14+i*44}" y="${34+(i%2)*10}" width="36" height="76" rx="6"/><circle class="p" cx="${32+i*44}" cy="${58+(i%2)*10}" r="9"/><rect class="m" x="${21+i*44}" y="${78+(i%2)*10}" width="22" height="4" rx="2"/><rect class="m" x="${21+i*44}" y="${88+(i%2)*10}" width="16" height="4" rx="2"/><text x="${32+i*44}" y="${104+(i%2)*10}" font-size="11" font-weight="800" text-anchor="middle">?</text></g>`).join('')}</svg>`,
+s1:`<svg class="ill" viewBox="0 0 240 150"><circle class="w" cx="150" cy="75" r="58"/><circle class="k" cx="150" cy="75" r="58"/><g class="bob"><circle class="p" cx="126" cy="60" r="13"/><circle class="p" cx="168" cy="98" r="13"/><circle class="p" cx="140" cy="104" r="11"/></g><g class="bob b2"><circle class="f" cx="166" cy="54" r="16"/><circle class="w" cx="161" cy="50" r="5" opacity=".5"/><circle class="p" cx="186" cy="76" r="10"/><circle class="p" cx="118" cy="86" r="10"/></g><path class="k" d="M22 128h50M46 128V84l20-36M32 84h28M58 44l12 6"/></svg>`,
+s2:`<svg class="ill" viewBox="0 0 240 150"><path class="k" d="M30 124h186M30 124V20"/>${[[46,70],[72,30],[98,48],[124,82],[150,100],[176,108]].map(([x,y],i)=>`<rect class="f grow" style="animation-delay:${i*.25}s" x="${x}" y="${y}" width="18" height="${124-y}"/>`).join('')}<path class="k beam" d="M40 60 C80 10,120 40,206 96"/></svg>`,
+s3:`<svg class="ill" viewBox="0 0 240 150"><path class="k" d="M34 126h180M34 126V18"/><g class="f">${[[70,100],[80,92],[66,88],[84,104],[74,82],[60,98],[90,96]].map(([x,y],i)=>`<circle class="blink" style="animation-delay:${i*.2}s" cx="${x}" cy="${y}" r="5"/>`).join('')}</g><g class="i">${[[150,48],[162,56],[146,60],[166,42],[156,66],[172,52],[158,36],[142,48]].map(([x,y],i)=>`<circle class="blink" style="animation-delay:${i*.15}s" cx="${x}" cy="${y}" r="5"/>`).join('')}</g><ellipse class="k pulse" cx="157" cy="51" rx="30" ry="26" stroke-dasharray="5 5"/></svg>`,
+s4:`<svg class="ill" viewBox="0 0 240 150"><rect class="w" x="76" y="16" width="92" height="120" rx="8"/><rect class="k" x="76" y="16" width="92" height="120" rx="8"/><rect class="i" x="104" y="8" width="36" height="14" rx="4"/><rect class="fillx" x="90" y="40" width="64" height="9" rx="2" fill="var(--s4)"/><rect class="fillx" style="animation-delay:.5s" x="90" y="58" width="50" height="9" rx="2" fill="var(--s2)"/><rect class="fillx" style="animation-delay:1s" x="90" y="76" width="60" height="9" rx="2" fill="var(--s1)"/><rect class="fillx" style="animation-delay:1.5s" x="90" y="94" width="42" height="9" rx="2" fill="var(--s3)"/><rect class="fillx" style="animation-delay:2s" x="90" y="112" width="54" height="9" rx="2" fill="var(--s5)"/><path class="k" d="M30 40c0 26 26 26 26 50v20M56 110a8 8 0 1 0 .1 0"/></svg>`,
+s5:`<svg class="ill" viewBox="0 0 240 150"><path class="k" d="M10 116h220"/><rect class="w" x="150" y="36" width="64" height="70" rx="6"/><rect class="k" x="150" y="36" width="64" height="70" rx="6"/><rect class="f" x="160" y="46" width="44" height="22" rx="3"/><circle class="i blink" cx="166" cy="86" r="4"/><circle class="i blink" style="animation-delay:.6s" cx="180" cy="86" r="4"/><rect class="w" x="14" y="52" width="40" height="30" rx="4"/><rect class="k" x="14" y="52" width="40" height="30" rx="4"/><g class="ride"><rect class="w" x="20" y="78" width="14" height="38" rx="6"/><rect class="k" x="20" y="78" width="14" height="38" rx="6"/><rect class="f" x="19" y="74" width="16" height="9" rx="2"/><rect class="p" x="22" y="98" width="10" height="15" rx="4"/></g></svg>`,
+huddle:`<svg class="ill" viewBox="0 0 240 150"><rect class="w" x="70" y="46" width="100" height="58" rx="8"/><rect class="k" x="70" y="46" width="100" height="58" rx="8"/>${['s4','s2','s1','s3','s5'].map((s,i)=>`<rect class="fillx" style="animation-delay:${i*.4}s" x="82" y="${55+i*9}" width="${76-i*8}" height="5" rx="2" fill="var(--${s})"/>`).join('')}${[[46,36],[194,36],[36,96],[204,96],[120,128]].map(([x,y],i)=>`<circle class="i bob ${i%2?'b2':''}" cx="${x}" cy="${y}" r="10"/>`).join('')}</svg>`,
+board:`<svg class="ill" viewBox="0 0 240 150"><rect class="k" x="60" y="40" width="120" height="70" rx="6"/><rect class="w" x="96" y="6" width="48" height="26" rx="3"/><rect class="k" x="96" y="6" width="48" height="26" rx="3"/><circle class="f pulse" cx="120" cy="19" r="6"/>${[[48,56],[48,94],[192,56],[192,94],[90,124],[120,124],[150,124]].map(([x,y],i)=>`<circle class="i bob ${i%3==1?'b2':i%3==2?'b3':''}" cx="${x}" cy="${y}" r="9"/>`).join('')}<text x="120" y="80" font-size="13" font-weight="800" text-anchor="middle">summative huddle</text></svg>`,
+jeop:`<svg class="ill" viewBox="0 0 240 150">${[0,1,2,3,4].map(c=>[0,1,2].map(r=>`<rect class="${(c+r)%4==0?'f blink':'i'}" style="animation-delay:${(c+r)*.3}s" x="${24+c*40}" y="${28+r*34}" width="32" height="26" rx="4" opacity="${(c+r)%4==0?1:.85}"/>`).join('')).join('')}</svg>`
+};
+const ST=[
+{n:1,c:'s1',name:'The multi-head scope',kind:'Morphology',lead:'Dr. Wey',ill:'s1',see:['A short film on collecting a bone marrow','A normal smear and a normal marrow','All five patients under one scope'],prep:['Glass for five patients plus normals','The marrow film','Scope camera on the wall screen','A 27-minute script']},
+{n:2,c:'s2',name:'The CBC and the analyzer',kind:'Numbers',lead:'Dr. Inamdar',ill:'s2',see:['An animation of how the instrument counts','Reading a CBC by lineage, index by index','Five printouts, one per patient'],prep:['Five CBC printouts with differentials','The analyzer animation','A one-page guide to the indices','Tablets or printed copies']},
+{n:3,c:'s3',name:'Flow cytometry',kind:'Immunophenotype',lead:'Resident or fellow',ill:'s3',see:['A film: one cell at a time past a laser','Reading a plot: one population or a mixture','The plots for the five patients'],prep:['The flow animation','Plots for each patient, including normal ones','A plain-words marker guide','The lead named and rehearsed']},
+{n:4,c:'s4',name:'The clinic',kind:'Clinical bridge',lead:'Hematology clinician',ill:'s4',see:['How each patient walked in','Chemistry, B12, LDH, molecular results','What treatment looks like','One report that joins it all'],prep:['A clinical sheet per patient','Example integrated reports','The clinician invited, with a backup','Treatment wording agreed with Dr. Wey']},
+{n:5,c:'s5',name:'The lab tour',kind:'The specimen journey',lead:'OZB with the core lab team',ill:'s5',see:['A film of the lab, section by section','A walk from the inlet to the stockyard','The hematology bench: the CBC line, how a smear is made and stained, CellaVision'],prep:['The lab film and the film on making a smear','A route cleared with the supervisor','Demo tubes, including two for Case 4 (EDTA tube artifact)','Privacy rules for phones on the floor']}
+];
+const P=[
+{name:'Walter',age:68,looks:'Looks like leukemia',is:'Vitamin B12 deficiency (pernicious anemia)',intro:'Three months of fatigue, numb feet, a sore tongue.',key:3,
+ f:['Giant oval red cells. A neutrophil with six lobes. A packed marrow.','All three lineages low. MCV 118. Reticulocytes low.','No abnormal population. No excess of blasts.','B12 very low, MMA high, LDH very high. Intrinsic factor antibody positive.','Analyzer flags trigger a smear review. The sample is good, so the numbers are real.'],
+ k:['Six-lobed neutrophil','Pancytopenia, MCV 118','No blasts','B12 very low','Flag, smear review'],prep:['Smear and marrow glass','CBC printout','Normal flow plot','B12, MMA, LDH sheet','Flag printout']},
+{name:'Jamal',age:19,looks:'Looks like mono',is:'B-cell acute lymphoblastic leukemia',intro:'Two weeks of sore throat, fever and swollen glands.',key:2,
+ f:['Cells that all look alike, with fine chromatin. Blasts.','White cells 42, hemoglobin 9, platelets 28. "Lymphocytes" flagged.','One immature B-cell population.','Mono test negative. LDH and uric acid high. Admitted tonight.','Blast flag, CellaVision review, a critical value phoned and read back.'],
+ k:['Uniform blasts','WBC 42, platelets 28','One immature B-cell population','Mono test negative','Critical call'],prep:['Smear and marrow glass','CBC with flag','Abnormal flow plots','Chemistry sheet','Critical value log']},
+{name:'Teresa',age:52,looks:'Looks like infection',is:'Chronic myeloid leukemia',intro:'Pneumonia six weeks ago. Feels better. Fullness under the left ribs.',key:3,
+ f:['Every stage of neutrophil, and basophils easy to find.','White cells 58, platelets 480, basophils 6 percent.','Maturing myeloid cells, no excess of blasts. Flow cannot name this one.','CRP normal, spleen enlarged. BCR::ABL1 detected. A daily tablet.','The count has not fallen in six weeks: the delta check. Blood sent for the gene test.'],
+ k:['All stages, basophils','WBC 58, basophils 6%','No blasts','BCR::ABL1 detected','Delta check'],prep:['Smear and marrow glass','CBC with differential','Flow plot','Molecular report','Prior counts for the delta']},
+{name:'Grace',age:45,looks:'Looks like a platelet emergency',is:'A tube artifact (EDTA platelet clumping)',intro:'A routine count before gallbladder surgery. She feels well.',key:4,
+ f:['Platelets heaped in clumps at the edge of the smear. All else normal.','Platelets 14 with a clump flag. Everything else normal.','Not ordered. Knowing when not to test is the lesson.','No bruising. A normal count last year. Surgery about to be cancelled.','Redrawn in a different tube: platelets 236. Surgery goes ahead.'],
+ k:['Platelet clumps','Platelets 14, flagged','Not needed','No bruising','New tube: 236'],no:[2],prep:['Smear with clumps','Two CBC printouts','A "not ordered" card','Pre-op note','Two demo tubes']},
+{name:'Malik',age:23,looks:'Looks like a pain crisis',is:'Sickle cell disease with aplastic crisis (parvovirus B19)',intro:'Known sickle cell disease. Three days of pain and deep fatigue. Very pale.',key:1,
+ f:['Sickle cells, target cells, Howell-Jolly bodies. Almost no young red cells.','Hemoglobin 4.8, far below his usual 8.5. Reticulocytes 0.2 percent.','Not ordered. No question here that flow can answer.','Parvovirus B19 positive. Hemoglobin analysis: mostly hemoglobin S. Transfusion.','Hemoglobin separation at the bench. Blood bank matches units with care.'],
+ k:['Sickle cells','Hb 4.8, retics 0.2%','Not needed','Parvovirus positive','Hemoglobin analysis'],no:[2],prep:['Smear glass','CBC with reticulocytes','A "not ordered" card','Virology and hemoglobin report','Blood bank demo']}
+];
+const CASE=['B12 deficiency','B-cell acute lymphoblastic leukemia','chronic myeloid leukemia','EDTA tube artifact','sickle cell disease, aplastic crisis'];
+const AGE=['68-year-old man','19-year-old man','52-year-old woman','45-year-old woman','23-year-old man'];
+const cl=n=>`<span class="chip"><i class="cs" style="--c:var(--c${n})">${n}</i>Case ${n} (${CASE[n-1]})</span>`;
+const li=a=>a.map((x,i)=>`<li class="rise" style="--i:${i+2}">${x}</li>`).join('');
+const row=(o,d)=>`<div class="row" style="--c:var(--${o.c||'s2'});--d:${d||0}"><div class="lt rise" style="--i:${(d||0)+1}">${ILL[o.ill]}<div><span class="tm">${o.time}</span><h3>${o.title}</h3><span class="tag" style="color:var(--c)">On the day</span><ul class="pts">${li(o.see)}</ul></div></div><div class="prep rise" style="--i:${(d||0)+2}"><span class="tag">Behind the scenes</span><ul class="pts">${li(o.prep)}</ul>${o.lead?`<p class="who">Led by <b>${o.lead}</b></p>`:''}</div></div>`;
+const hd=(t,h)=>`<div class="head rise"><span class="time">${t}</span><h2>${h}</h2></div>`;
+const pgw=(t,h,body)=>`<section class="pg">${hd(t,h)}<div class="pgs">${body}</div></section>`;
+const stRow=s=>row({time:'Station '+s.n+' · '+s.kind,title:s.name,ill:s.ill,c:s.c,see:s.see,prep:s.prep,lead:s.lead},s.n%3);
+const pages=[];
+// 0 cover + day
+pages.push(`<section class="pg"><div class="hero2"><div><p class="eyebrow rise">Hematopathology workshop for medical students &middot; outline version 6.2</p><h1 class="rise" style="--i:1">Five patients. Five stations. One Saturday.</h1><p class="rise" style="--i:2;font-size:1.05rem;color:var(--muted);max-width:56ch;margin-top:8px">A walk through the day as a student lives it, with what we build to make each moment work.</p></div><div class="legend2"><div class="a rise" style="--i:3"><b>Light panels</b>What the student sees on the day.</div><div class="b rise" style="--i:4"><b>Dark panels</b>What we prepare behind the scenes.</div><div class="ckey rise" style="--i:5"><span><i class="sw" style="background:var(--s1)"></i><i class="sw" style="background:var(--s2)"></i><i class="sw" style="background:var(--s3)"></i><i class="sw" style="background:var(--s4)"></i><i class="sw" style="background:var(--s5)"></i>Stations</span><span><i class="sq" style="background:var(--c1)"></i><i class="sq" style="background:var(--c2)"></i><i class="sq" style="background:var(--c3)"></i><i class="sq" style="background:var(--c4)"></i><i class="sq" style="background:var(--c5)"></i>Cases</span><span><i class="tkn"></i>Teams</span></div><p class="note rise" style="--i:6">Use Next, the dots, or the arrow keys.</p></div></div><div class="head rise" style="margin-top:6px"><span class="time">8:30 to 2:30</span><h2>The day at a glance</h2></div><div class="scroll rise" style="--i:1"><div class="tl"><div class="play"></div><div class="ribbon"><div style="flex:30">Doors</div><div class="hi" style="flex:20">Meet the five</div><div class="st" style="flex:30">Station</div><div class="st" style="flex:30">Station</div><div class="st" style="flex:30">Station</div><div style="flex:20">Break</div><div class="st" style="flex:30">Station</div><div class="st" style="flex:30">Station</div><div style="flex:60">Working lunch, the draw midway</div><div class="hi" style="flex:50">Summative huddle</div><div class="st" style="flex:20">Jeopardy</div><div class="v" style="flex:10">Wrap</div></div><div class="ticks"><span style="left:0">8:30</span><span style="left:8.33%">9:00</span><span style="left:13.89%">9:20</span><span style="left:22.22%">9:50</span><span style="left:30.56%">10:20</span><span style="left:38.89%">10:50</span><span style="left:44.44%">11:10</span><span style="left:52.78%">11:40</span><span style="left:61.11%">12:10</span><span style="left:69.44%">12:40</span><span style="left:77.78%">1:10</span><span style="left:91.67%">2:00</span><span style="left:100%">2:30</span></div></div></div><div class="three"><div class="rise" style="--i:2"><b>Meet</b><span>Five patients are introduced. Nobody knows which one their team will present.</span></div><div class="rise" style="--i:3"><b>Gather</b><span>Five stations. Each one adds a different piece to every patient.</span></div><div class="rise" style="--i:4"><b>Present</b><span>The app draws a patient for each team. Summative huddle, then Jeopardy.</span></div></div></section>`);
+// 1 arrival
+pages.push(pgw('8:30 to 9:20','Arrive, then meet the five',row({time:'8:30',title:'Doors open',ill:'badge',c:'s2',see:['A badge with a QR code on the back','Scan it: your own dashboard opens','Coffee, breakfast, bags stored','A short survey on the phone'],prep:['Badges printed, one QR per student','Sign-up closed by the deadline, capped at 30, with a waitlist','The pre-survey built and tested','The welcome room, catering, storage']})+row({time:'9:00',title:'Meet the five patients',ill:'five',c:'s1',see:['How the day works, in five minutes','Dr. Wey introduces five patients','The app shows your team and your route','Which patient is yours? Not yet known'],prep:['Dr. Wey\'s introduction slides','Five patient stories, one paragraph each','Random team assignment in the app','Resident guides ready to walk the teams'],lead:'Dr. Wey'},2)));
+// 2 carousel
+pages.push(`<section class="pg">${hd('9:20 to 12:10','The carousel: every team visits every station')}<div class="ringwrap"><svg class="ring rise" style="--i:1" viewBox="0 0 520 430" role="img" aria-label="Five teams rotate clockwise around five stations every thirty minutes"><circle class="path" cx="260" cy="215" r="150"/><text class="hub" x="260" y="210">teams move</text><text class="hub" x="260" y="232">every 30 minutes</text><g class="teams">${[[260,118],[352,185],[317,293],[203,293],[168,185]].map(([x,y],i)=>`<g class="tk"><circle cx="${x}" cy="${y}" r="16"/><text x="${x}" y="${y+4}">T${i+1}</text></g>`).join('')}</g>${[[260,65,260,24],[403,169,455,128],[348,336,400,394],[172,336,120,394],[117,169,66,128]].map(([x,y,lx,ly],i)=>`<g class="n"><circle cx="${x}" cy="${y}" r="29" fill="var(--s${i+1})"/><text x="${x}" y="${y+8}">${i+1}</text></g><text class="lab" x="${lx}" y="${ly}">${['The scope','The CBC','Flow','The clinic','The lab'][i]}</text>`).join('')}</svg><div class="slist">${ST.map((s,i)=>`<button type="button" class="rise" data-go="${i<3?3:4}" style="--c:var(--${s.c});--i:${i+2}"><b>${s.n}. ${s.name}</b><span>${s.kind} &middot; ${s.lead}</span></button>`).join('')}<p class="note rise" style="--i:8">Thirty-minute slots, about 27 at the station. A 20-minute break after the third. The order differs by team, so each station stands on its own.</p></div></div></section>`);
+// 3,4 stations
+pages.push(pgw('9:20 to 12:10','Stations 1 to 3: scope, CBC, flow',ST.slice(0,3).map((s,i)=>row({time:'Station '+s.n+' · '+s.kind,title:s.name,ill:s.ill,c:s.c,see:s.see,prep:s.prep,lead:s.lead},i*2)).join('')));
+pages.push(pgw('11:10 to 1:10','Stations 4 and 5, then the working lunch',ST.slice(3).map((s,i)=>row({time:'Station '+s.n+' · '+s.kind,title:s.name,ill:s.ill,c:s.c,see:s.see,prep:s.prep,lead:s.lead},i*2)).join('')+row({time:'12:10',title:'Working lunch and the draw',ill:'huddle',c:'s4',see:['One hour to eat and wrap up all five cases','Each report shows its pieces, color by station','Midway, at 12:40, the app assigns your case','Facilitators and moderators circulate to help'],prep:['The report builder in the app','The random draw, tested','Lunch set in the E&R room','Facilitators and moderators briefed to circulate','A paper copy of every report, in case']},4)));
+// 5 afternoon
+pages.push(pgw('1:10 to 2:30','Summative huddle, Jeopardy and the wrap-up',row({time:'1:10',title:'The summative huddle',ill:'board',c:'s2',see:['One big table, every team around it','Each team presents its drawn patient','Evidence first, then the diagnosis','Faculty give the answer and the look-alike'],prep:['A scoring rubric','Tables joined into one big table','Faculty answers and teaching points','The projector showing each team\'s report'],lead:'Dr. Wey, Dr. Inamdar and the clinician'})+row({time:'2:00',title:'Jeopardy and the wrap-up',ill:'jeop',c:'s1',see:['Teams vote on their phones','Questions across all five patients','Winners announced, certificates','A closing survey, and one more in a few weeks'],prep:['The question bank','Voting and a live scoreboard','Certificates printed','Post-survey and the follow-up at four to six weeks']},2)));
+// 6 puzzle
+pages.push(`<section class="pg">${hd('The puzzle','Each station gives every patient one piece')}<div class="scroll rise" style="--i:1"><div class="mx"><div class="h x">Patient</div>${ST.map(s=>`<div class="h" style="--c:var(--${s.c})">${s.n}. ${['Scope','CBC','Flow','Clinic','Lab'][s.n-1]}</div>`).join('')}<div class="h ans">The answer</div>${P.map((p,pi)=>`<button type="button" class="pt" data-go="${pi<3?7:8}"><b><i class="cs" style="--c:var(--c${pi+1})">${pi+1}</i>Case ${pi+1}</b><span>(${CASE[pi]})</span><span>${p.looks}</span></button>${p.k.map((k,i)=>`<div class="c ${p.key==i?'key':''} ${(p.no||[]).includes(i)?'no':''}" style="--c:var(--s${i+1});--col:${i}">${k}</div>`).join('')}<div class="a">${p.is.split(' (')[0]}</div>`).join('')}</div></div><div class="mxkey rise" style="--i:2"><span><i style="background:var(--s1)"></i>Solid piece: the finding that decides the case</span><span><i style="border:1px dashed var(--muted)"></i>Dashed: no test needed, which is its own lesson</span><span>Select a patient to see the detail.</span></div><p class="note rise" style="--i:3">No single station solves any patient. The deciding piece sits at a different station for each one, so every station matters to someone.</p></section>`);
+// 7,8 patients
+const prow=(p,pi)=>`<div class="prow"><div class="pcard rise" style="--i:${pi%3+1};border-top:5px solid var(--c${pi+1})"><span class="looks">${p.looks}</span><span class="big" style="color:var(--c${pi+1})">Case ${pi+1}</span><span class="dx">(${CASE[pi]})</span><span class="ag">${AGE[pi]}</span><p style="color:var(--muted)">${p.intro}</p></div><div class="pieces">${p.f.map((f,i)=>`<div class="pc rise ${p.key==i?'key':''}" style="--c:var(--s${i+1});--i:${pi%3+2+i}"><small>${i+1}. ${['Scope','CBC','Flow','Clinic','Lab'][i]}</small>${f}</div>`).join('')}</div><div class="rcol"><div class="ans rise" style="--i:${pi%3+3}"><span class="tag" style="color:inherit;opacity:.7">The answer</span><b>${p.is}</b></div><div class="back rise" style="--i:${pi%3+4}"><span class="tag" style="color:var(--navy-muted)">Behind the scenes: this patient's file</span><div class="chips">${p.prep.map(x=>`<span>${x}</span>`).join('')}<span>Final integrated report</span></div></div></div></div>`;
+pages.push(pgw('Cases 1 to 3','What each station adds: Cases 1, 2 and 3',P.slice(0,3).map((p,i)=>prow(p,i)).join('')+`<p class="note rise" style="--i:6">Each patient is told to everyone at 9:00. The rest arrives station by station.</p>`));
+pages.push(pgw('Cases 4 and 5','What each station adds: Cases 4 and 5',P.slice(3).map((p,i)=>prow(p,i+3)).join('')+`<p class="note rise" style="--i:6">Each patient is told to everyone at 9:00. The rest arrives station by station. Pieces marked not needed mean no test was ordered. Knowing when not to test is part of the lesson.</p>`));
+// 9 build
+pages.push(`<section class="pg">${hd('Before the day','Eight lists to finish ahead of time')}<div class="four eight"><div class="rise" style="--i:1"><h3>1. Logistics</h3><ul><li>Rooms booked: the Horn, the multi-head room, the core lab route, the E&amp;R room</li><li>Breakfast, break and lunch ordered</li><li>Weekend building access and escorts</li><li>Badges, signs, a place for bags</li><li>Lab floor rules: phones, escorts, route</li><li>A fallback for weather or no-shows</li></ul></div><div class="rise" style="--i:2"><h3>2. Things</h3><ul><li>Glass for five cases and the normals</li><li>CBC printouts, flow plots, clinical sheets</li><li>A final report for each case</li><li>Demo tubes, including two for Case 4</li><li>Badges with QR codes</li><li>Certificates, name cards, paper copies of every report</li><li>Marketing videos to send: teaser, invitation, reminders, recap</li></ul></div><div class="rise" style="--i:3"><h3>3. People</h3><ul><li>Station leads: Dr. Wey, Dr. Inamdar, OZB with the core lab team</li><li>A resident or fellow for flow</li><li>A hematology clinician, with a backup</li><li>Residents who walk with the teams</li><li>Someone for tech support on the day</li><li>The IRB office and the department, for approvals</li></ul></div><div class="rise" style="--i:4"><h3>4. Tools</h3><ul><li>A facilitator guide and a 27-minute script for each station</li><li>Scoring rubric for the summative huddle</li><li>Jeopardy question bank</li><li>Pre and post survey questions</li><li>Case log and report templates</li><li>A run-of-show with the clock</li></ul></div><div class="rise" style="--i:5"><h3>5. Preps</h3><ul><li>Case review with Dr. Wey</li><li>Resident briefing</li><li>App dry run with test teams</li><li>A timed walk of the route</li><li>Each station run once</li><li>Dress rehearsal the week before</li><li>Sound, video and Wi-Fi check that morning</li></ul></div><div class="rise" style="--i:6"><h3>6. Dates</h3><ul><li>A Saturday between March and May 2027, not yet chosen</li><li>Suggested: Mar 13, Apr 10, Apr 17, May 1</li><li>Sign-up opens a few months ahead and closes at a deadline</li><li>Registration capped at 30, with a waitlist</li><li>A follow-up survey 4 to 6 weeks after</li><li>The week-by-week timeline is on the next page</li></ul></div><div class="rise" style="--i:7"><h3>7. Pre-work (ours)</h3><ul><li>Confirm the date and the rooms</li><li>Ask the IRB whether the project needs review</li><li>Chair and department approvals</li><li>Confirm the station leads and the clinician</li><li>Agree the survey questions and where the data is kept</li><li>Students have no pre-work: everything is taught on the day</li></ul></div><div class="rise" style="--i:8"><h3>8. Technology</h3><ul><li>The companion app: QR dashboards, teams, case log, report builder</li><li>An admin console for timed pushes</li><li>The draw, Jeopardy voting, a live scoreboard</li><li>A simple data file of our own for survey answers, no REDCap</li><li>Six films and the gear to make them</li><li>Screens, projector, multi-head camera, Wi-Fi with a hotspot backup</li><li>A paper fallback for every scored step</li></ul></div></div><p class="note rise" style="--i:9">Patients are fictional. Case 5 (sickle cell disease, aplastic crisis) is a draft for Dr. Wey to edit. Room names and station leads are to be confirmed.</p></section>`);
+pages.push(`<section class="pg">${hd('Before the day','The timeline, the IRB and the data')}<div class="tw"><ol class="wl"><li class="rise" style="--i:1"><b>20 weeks or more</b><span>Choose the date. Book the rooms. Ask the IRB office whether review is needed. Confirm the station leads and the clinician.</span></li><li class="rise" style="--i:2"><b>16 weeks</b><span>Draft the five case files and pull the glass. Write the survey questions.</span></li><li class="rise" style="--i:3"><b>12 weeks</b><span>The IRB answer is in hand. Marketing starts and sign-up opens.</span></li><li class="rise" style="--i:4"><b>10 weeks</b><span>App ready for testing. Film scripts and facilitator guides written.</span></li><li class="rise" style="--i:5"><b>8 weeks</b><span>Films recorded. First app dry run with test teams. Residents briefed. Lunch and breaks ordered.</span></li><li class="rise" style="--i:6"><b>6 weeks</b><span>Sign-up closes. Teams assigned. Badges printed.</span></li><li class="rise" style="--i:7"><b>4 weeks</b><span>Timed walk of the route. Each station run once.</span></li><li class="rise" style="--i:8"><b>2 weeks</b><span>App frozen. Jeopardy bank finished. Everything printed.</span></li><li class="rise" style="--i:9"><b>1 week</b><span>Dress rehearsal. Reminders to students.</span></li><li class="rise day" style="--i:10"><b>The day</b><span>Tech check at 7:30. Doors at 8:30.</span></li><li class="rise" style="--i:11"><b>1 week after</b><span>Thank-you and the references.</span></li><li class="rise" style="--i:12"><b>4 to 6 weeks after</b><span>Follow-up survey. Then the analysis and the write-up.</span></li></ol><div class="irb rise" style="--i:3"><span class="tag">IRB and the data</span><h3>Check before anything is collected</h3><ul><li><b>Why:</b> we plan to publish, so the pre and post surveys may count as research.</li><li><b>Ask:</b> the IRB office at Henry Ford, and whether Michigan State also needs to weigh in. Is this exempt, or not human-subjects research? Do students need to consent to their answers being used?</li><li><b>Bring:</b> the plan, the survey questions, how the data are stored, and who sees them.</li><li><b>Data:</b> typed into the app, kept in a simple file we control, a code instead of a name, one place, limited access, backed up. No REDCap.</li><li><b>Timing:</b> do not open sign-up or collect any answers until the IRB reply is in.</li></ul><div class="nb">Students sign or read nothing before the day. If the IRB asks for a consent or information sheet, it is shown on arrival.</div></div></div><p class="note rise" style="--i:8">Candidate Saturdays: March 13, April 10, April 17 and May 1 are suggested. Avoid March 27 (Easter weekend) and May 29 (Memorial Day weekend). April 24 falls in Passover and May 8 is the day before Mother\'s Day. Check each against the schools\' exam and break calendars.</p></section>`);
+
+const OBJ=[
+['Identify','the normal cells of blood and marrow and assign each to its lineage.',[1,0,0,0,0,0],[1],'smear set beside the normal smear','Jeopardy'],
+['Interpret','a CBC with differential by lineage, using the indices, absolute counts and the reticulocyte count.',[0,1,0,0,0,0],[1,5],'three low lineages; the reticulocyte count','Jeopardy'],
+['Explain','how an automated analyzer produces a CBC, and recognize a result that is an artifact.',[0,1,0,0,1,0],[4],'a platelet count that is not real','Jeopardy'],
+['Distinguish','reactive from neoplastic blood findings on a smear, and recognize a blast.',[1,0,2,0,0,0],[2,3],'blasts against a spread of maturing cells','Jeopardy'],
+['Describe','the principle of flow cytometry and read a plot as one population or a mixture.',[0,0,1,0,0,0],[2],'the plot','Jeopardy'],
+['Apply','a stepwise approach to anemia and to thrombocytopenia, and choose the next test.',[0,1,0,1,0,2],[1,4],'anemia; platelets','Summative huddle rubric'],
+['Integrate','the history, CBC, morphology, chemistry, flow and molecular results into one diagnosis and one report.',[0,0,0,1,0,1],[1,2,3,4,5],'all five, at the working lunch','Report and summative huddle rubric'],
+['Trace','a specimen through the laboratory and name who does what along the way.',[0,0,0,0,1,0],[4],'the tube','Jeopardy'],
+['Present','a case at a multidisciplinary conference and defend the diagnosis with evidence.',[0,0,0,0,0,1],[],'the case each team draws','Summative huddle rubric'],
+['Describe','what a hematopathologist contributes to the care of a patient.',[2,2,2,2,2,2],[1,2,3,4,5],'every case','Post-survey']];
+const omHead=['1 Scope','2 CBC','3 Flow','4 Clinic','5 Lab','Huddle'];
+const omCol=['--s1','--s2','--s3','--s4','--s5','--ink'];
+pages.push(`<section class="pg">${hd('Learning objectives','By the end, the student will be able to:')}<div class="scroll rise" style="--i:1"><div class="om"><div class="h l"></div><div class="h l">Objective</div>${omHead.map((h,i)=>`<div class="h" style="--c:var(${omCol[i]})">${h}</div>`).join('')}<div class="h l">Best taught by &middot; checked by</div>${OBJ.map((o,r)=>`<div class="rl"></div><div class="n">${r+1}</div><div class="o"><b>${o[0]}</b> ${o[1]}</div>${o[2].map((v,i)=>`<div class="d">${v?`<i class="${v==2?'s':''}" style="--c:var(${omCol[i]});--col:${i}"></i>`:''}</div>`).join('')}<div class="w">${o[3].length===5?'<span class="ckey" style="gap:3px">'+o[3].map(n=>`<i class="cs" style="--c:var(--c${n});margin:0">${n}</i>`).join('')+'</span> ':o[3].map(cl).join('')}${o[4]} &middot; ${o[5]}</div>`).join('')}</div></div><div class="mxkey rise" style="--i:3"><span><i style="background:var(--s1);border-radius:50%"></i>Taught here</span><span><i style="border:2px solid var(--s1);border-radius:50%"></i>Touched here</span><span>Every student also takes the same short survey before and after, and again at four to six weeks.</span></div><div class="ckey rise" style="--i:4"><b>Key</b><span><i class="sw" style="background:var(--s1)"></i>Stations are circles</span><span><i class="sq" style="background:var(--c1)"></i>Cases are squares</span><span><i class="tkn"></i>Teams are plain tokens</span></div><div class="ckey rise" style="--i:5">${[1,2,3,4,5].map(cl).join('')}</div><p class="note rise" style="--i:4">Draft mapping for Dr. Wey and Dr. Inamdar to adjust. Objective 10 is touched everywhere by design. A row marked with all five squares involves every case.</p></section>`);
+const stage=document.getElementById('stage');stage.innerHTML=pages.join('');
+const pg=[...stage.querySelectorAll('.pg')],dots=document.getElementById('dots');let cur=0;
+pg.forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Page '+(i+1));b.onclick=()=>go(i);dots.appendChild(b)});
+function go(i){cur=Math.max(0,Math.min(pg.length-1,i));pg.forEach((p,j)=>p.classList.toggle('on',j===cur));[...dots.children].forEach((d,j)=>d.classList.toggle('on',j===cur));document.getElementById('count').textContent=(cur+1)+' of '+pg.length;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===pg.length-1;stage.scrollTop=0}
+document.getElementById('prev').onclick=()=>go(cur-1);document.getElementById('next').onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1);if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1)});
+stage.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)go(+b.dataset.go)});
+const h=/^#p(\d+)$/.exec(location.hash);go(h?+h[1]-1:0);
+</script>
+
+</body>
+</html>
